@@ -1,5 +1,7 @@
 package net.azisaba.spicyAzisaBan.events
 
-interface SABLoginEvent(val loginData: LoginData) {
+import net.azisaba.spicyAzisaBan.struct.LoginData
 
+interface SABLoginEvent {
+    val loginData: LoginData
 }

@@ -180,7 +180,7 @@ data class PlayerData(
                 }
             }
             val addr = player.getRemoteAddress().getIPAddress()
-            val loginData = LoginData(player.uniqueId, name, addr)
+            val loginData = LoginData(player.uniqueId, player.name, addr)
             if (addr != null) {
                 val ip = SpicyAzisaBan.instance.connection.ipAddressHistory
                     .findOne(FindOptions.Builder().addWhere("uuid", player.uniqueId.toString()).setOrderBy("last_seen").setOrder(Sort.DESC).build())
@@ -221,7 +221,7 @@ data class PlayerData(
                 context.resolve(PlayerData(player.uniqueId, player.name, addr, time, -1, -1, -1, -1))
             }
             loginData.first = !exists
-            if(login) SpicyAzisaBan.instance.callSABLoginEvent(LoginData)
+            if(login) SpicyAzisaBan.instance.callSABLoginEvent(loginData)
         }
 
         fun updateFromMojangAPI(uuid: UUID): Promise<Unit> {
