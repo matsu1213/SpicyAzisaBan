@@ -403,6 +403,7 @@ data class Punishment(
     }
 
     fun onPunished(actor: Actor? = null) = async<Unit> {
+        SpicyAzisaBan.instance.callPunishmentEvent(this)
         val notifyTargetServer = (if (server == "global" && actor is PlayerActor) actor.getServer()?.name else server) ?: server
         // notes are ignored entirely
         if (type == PunishmentType.NOTE) return@async it.resolve()

@@ -3,6 +3,8 @@ package net.azisaba.spicyAzisaBan.bungee
 import net.azisaba.spicyAzisaBan.PlatformType
 import net.azisaba.spicyAzisaBan.SpicyAzisaBan
 import net.azisaba.spicyAzisaBan.bungee.command.BungeeCommand
+import net.azisaba.spicyAzisaBan.bungee.event.BungeeSABLoginEvent
+import net.azisaba.spicyAzisaBan.bungee.event.BungeePunishmentEvent
 import net.azisaba.spicyAzisaBan.bungee.util.BungeeUtil.toCommon
 import net.azisaba.spicyAzisaBan.common.Actor
 import net.azisaba.spicyAzisaBan.common.PlayerActor
@@ -10,6 +12,8 @@ import net.azisaba.spicyAzisaBan.common.ServerInfo
 import net.azisaba.spicyAzisaBan.common.chat.Component
 import net.azisaba.spicyAzisaBan.common.command.Command
 import net.azisaba.spicyAzisaBan.common.scheduler.ScheduledTask
+import net.azisaba.spicyAzisaBan.punishment.Punishment
+import net.azisaba.spicyAzisaBan.struct.LoginData
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import net.md_5.bungee.api.ProxyServer
 import net.md_5.bungee.api.chat.TextComponent
@@ -74,5 +78,13 @@ class SpicyAzisaBanBungee: SpicyAzisaBan() {
             .serialize(component)
             .let { TextComponent.fromLegacyText(it) }
             .let { TextComponent(*it).toCommon() }
+    }
+
+    override fun callSABLoginEvent(loginData: LoginData) {
+        BungeePlugin.instance.proxy.pluginManager.callEvent(BungeeSABLoginEvent(loginData))
+    }
+
+    override fun callPunishmentEvent(punishment: Punishment) {
+        BungeePlugin.instance.proxy.pluginManager.callEvent(BungeePunishmentEvent(punishment))
     }
 }

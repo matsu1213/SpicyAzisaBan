@@ -9,7 +9,11 @@ import net.azisaba.spicyAzisaBan.common.ServerInfo
 import net.azisaba.spicyAzisaBan.common.chat.Component
 import net.azisaba.spicyAzisaBan.common.command.Command
 import net.azisaba.spicyAzisaBan.common.scheduler.ScheduledTask
+import net.azisaba.spicyAzisaBan.punishment.Punishment
+import net.azisaba.spicyAzisaBan.struct.LoginData
 import net.azisaba.spicyAzisaBan.velocity.command.VelocityCommand
+import net.azisaba.spicyAzisaBan.velocity.event.VelocitySABLoginEvent
+import net.azisaba.spicyAzisaBan.velocity.event.VelocityPunishmentEvent
 import net.azisaba.spicyAzisaBan.velocity.util.VelocityComponent
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import java.io.File
@@ -78,4 +82,12 @@ class SpicyAzisaBanVelocity(private val server: ProxyServer): SpicyAzisaBan() {
     override fun getDataFolder(): Path = File("./plugins/SpicyAzisaBan").toPath()
 
     override fun convertComponent(component: KComponent): Component = VelocityComponent(component)
+
+    override fun callSABLoginEvent(loginData: LoginData){
+        server.eventManager.fire(VelocitySABLoginEvent(loginData))
+    }
+
+    override fun callPunishmentEvent(punishment: Punishment) {
+        server.eventManager.fire(VelocityPunishmentEvent(punishment))
+    }
 }

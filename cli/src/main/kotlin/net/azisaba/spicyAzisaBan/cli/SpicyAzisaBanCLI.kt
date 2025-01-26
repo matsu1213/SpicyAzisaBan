@@ -10,6 +10,8 @@ import net.azisaba.spicyAzisaBan.common.ServerInfo
 import net.azisaba.spicyAzisaBan.common.chat.Component
 import net.azisaba.spicyAzisaBan.common.command.Command
 import net.azisaba.spicyAzisaBan.common.scheduler.ScheduledTask
+import net.azisaba.spicyAzisaBan.punishment.Punishment
+import net.azisaba.spicyAzisaBan.struct.LoginData
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 import java.io.File
 import java.io.OutputStream
@@ -75,4 +77,7 @@ class SpicyAzisaBanCLI: SpicyAzisaBan() {
             .serialize(component)
             .let { SimpleComponent.fromLegacyText(it) }
     }
+
+    override fun callSABLoginEvent(loginData: LoginData) {}
+    override fun callPunishmentEvent(punishment: Punishment) {}
 }

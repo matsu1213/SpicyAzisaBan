@@ -46,8 +46,10 @@ import net.azisaba.spicyAzisaBan.common.ServerInfo
 import net.azisaba.spicyAzisaBan.common.chat.Component
 import net.azisaba.spicyAzisaBan.common.command.Command
 import net.azisaba.spicyAzisaBan.common.scheduler.ScheduledTask
+import net.azisaba.spicyAzisaBan.punishment.Punishment
 import net.azisaba.spicyAzisaBan.sql.SQLConnection
 import net.azisaba.spicyAzisaBan.sql.migrations.DatabaseMigration
+import net.azisaba.spicyAzisaBan.struct.LoginData
 import net.azisaba.spicyAzisaBan.struct.EventType
 import net.azisaba.spicyAzisaBan.util.TimerTasks
 import net.azisaba.spicyAzisaBan.util.Util
@@ -222,6 +224,8 @@ abstract class SpicyAzisaBan {
     abstract fun getConsoleActor(): Actor
     abstract fun getDataFolder(): Path
     abstract fun convertComponent(component: net.kyori.adventure.text.Component): Component
+    abstract fun callSABLoginEvent(loginData: LoginData)
+    abstract fun callPunishmentEvent(punishment: Punishment)
 
     class Settings {
 
